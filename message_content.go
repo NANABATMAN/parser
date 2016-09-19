@@ -37,6 +37,7 @@ func (messageContent *MessageContent) AddEmoticon(emoticon string) {
 func (messageContent *MessageContent) AddLink(url string) {
 	if _, ok := urls[url]; !ok {
 		resp, err := http.Get(url)
+		defer resp.Body.Close()
 		if err == nil && resp.StatusCode == 200 {
 			html, err := ioutil.ReadAll(resp.Body)
 			if err == nil {
